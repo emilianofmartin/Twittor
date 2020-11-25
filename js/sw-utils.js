@@ -10,7 +10,7 @@ function cacheName(url) {
             cName = CACHE_INMUTABLE_NAME;
     });
 
-    Promise.all(shell, inmutable)
+    Promise.all([shell, inmutable])
         .then(() => {
             console.log('cName', cName);
             return cName;
