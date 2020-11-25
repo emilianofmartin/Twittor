@@ -1,5 +1,5 @@
 function cacheName(url) {
-    let cName = "";
+    let cName = CACHE_DYNAMIC_NAME;
     const shell = APP_SHELL.forEach(u => {
         if(url.includes(u))
             cName = CACHE_STATIC_NAME;
@@ -11,8 +11,6 @@ function cacheName(url) {
     });
 
     Promise.all(shell, inmutable).then(() => {
-        if(cName === "")
-            cName = CACHE_DYNAMIC_NAME;
         return cName;
     });
 }
