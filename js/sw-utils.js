@@ -7,7 +7,7 @@ function cacheName(url) {
 
     const inmutable = APP_SHELL_INMUTABLE.forEach(u => {
         if(url.includes(u))
-        cName = CACHE_INMUTABLE_NAME;
+            cName = CACHE_INMUTABLE_NAME;
     });
 
     Promise.all(shell, inmutable).then(() => {
@@ -18,11 +18,14 @@ function cacheName(url) {
 }
 
 //Guardar en el cach dinámico
-function updateDynamicCache(cacheName, req, rsp) {
+function updateCache(req, rsp) {
     if(rsp.ok) {
-        return caches.open(cacheName).then(cache => {
+        const cName = cacheName(req.url);
+        return caches.open(cName).then(cache => {
             cache.put(req, rsp.clone());
-            clearCache(cName, cacheName);  //Limpiamos el dinámico
+
+            if(cName === CACHE_DYNAMIC_NAME)
+                clearCache(cName, CACHE_DYNAMIC_LIMIT);  //Limpiamos el dinámico
             return rsp.clone();
         })
     }

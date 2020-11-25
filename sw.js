@@ -1,9 +1,9 @@
 //imports
 importScripts('js/sw-utils.js');
 
-const CACHE_STATIC_NAME     = 'static-v4';
-const CACHE_DYNAMIC_NAME    = 'dynamic-v2';
-const CACHE_INMUTABLE_NAME  = 'inmutable-v1';
+const CACHE_STATIC_NAME     = 'static-v5';
+const CACHE_DYNAMIC_NAME    = 'dynamic-v3';
+const CACHE_INMUTABLE_NAME  = 'inmutable-v2';
 const CACHE_DYNAMIC_LIMIT = 50;
 
 const APP_SHELL = [
@@ -62,7 +62,7 @@ self.addEventListener('fetch', e => {
             return rsp;
         
         return fetch(e.request).then(rsp => {
-            return updateDynamicCache(CACHE_DYNAMIC_NAME, e.request, rsp);
+            return updateCache(e.request, rsp);
         });
     });
     e.respondWith(rsp);
