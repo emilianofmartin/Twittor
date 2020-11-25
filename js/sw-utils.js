@@ -1,25 +1,14 @@
 async function cacheName(url) {
     let cName = CACHE_DYNAMIC_NAME;
-    const shell = APP_SHELL.forEach(u => {
-        if(url.includes(u))
+    for(var i=0;i<APP_SHELL.length;i++)
+        if(url.includes(APP_SHELL[i]))
             cName = CACHE_STATIC_NAME;
-    });
 
-    const inmutable = APP_SHELL_INMUTABLE.forEach(u => {
-        if(url.includes(u))
+    for(var i=0;i<APP_SHELL_INMUTABLE.length;i++)
+        if(url.includes(APP_SHELL_INMUTABLE[i]))
             cName = CACHE_INMUTABLE_NAME;
-    });
 
-    Promise.all([shell, inmutable])
-        .then(() => {
-            console.log('cName15', cName);
-            return cName;
-        })
-        .catch(err => {
-            console.log(err);
-            console.log('cName20', cName);
-            return cName;
-        });
+    return cName;
 }
 
 //Guardar en el cach dinámico
