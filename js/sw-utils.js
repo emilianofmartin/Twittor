@@ -12,12 +12,12 @@ function cacheName(url) {
 
     Promise.all([shell, inmutable])
         .then(() => {
-            console.log('cName', cName);
+            //console.log('cName', cName);
             return cName;
         })
         .catch(err => {
             console.log(err);
-            console.log('cName', cName);
+            //console.log('cName', cName);
             return cName;
         });
 }
@@ -26,6 +26,7 @@ function cacheName(url) {
 function updateCache(req, rsp) {
     if(rsp.ok) {
         const cName = cacheName(req.url);
+        console.log("cName", cName);
         return caches.open(cName).then(cache => {
             cache.put(req, rsp.clone());
 
