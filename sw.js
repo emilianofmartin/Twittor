@@ -67,22 +67,3 @@ self.addEventListener('fetch', e => {
     });
     e.respondWith(rsp);
 });
-
-function cacheName(url) {
-    let cName = "";
-    const shell = APP_SHELL.forEach(u => {
-        if(url.includes(u))
-            cName = CACHE_STATIC_NAME;
-    });
-
-    const inmutable = APP_SHELL_INMUTABLE.forEach(u => {
-        if(url.includes(u))
-        cName = CACHE_INMUTABLE_NAME;
-    });
-
-    Promise.all(shell, inmutable).then(() => {
-        if(cName === "")
-            cName = CACHE_DYNAMIC_NAME;
-        return cName;
-    });
-}
