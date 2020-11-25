@@ -10,9 +10,16 @@ function cacheName(url) {
             cName = CACHE_INMUTABLE_NAME;
     });
 
-    Promise.all(shell, inmutable).then(() => {
-        return cName;
-    });
+    Promise.all(shell, inmutable)
+        .then(() => {
+            console.log('cName', cName);
+            return cName;
+        })
+        .catch(err => {
+            console.log(err);
+            console.log('cName', cName);
+            return cName;
+        });
 }
 
 //Guardar en el cach dinámico
