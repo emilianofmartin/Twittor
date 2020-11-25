@@ -15,7 +15,7 @@ function cacheName(url) {
 function updateCache(req, rsp) {
     if(rsp.ok) {
         const cName = cacheName(req.url);
-        console.log("cName", cName);
+        //console.log("cName", cName);
         return caches.open(cName).then(cache => {
             cache.put(req, rsp.clone());
 
