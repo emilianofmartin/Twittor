@@ -1,8 +1,8 @@
 //imports
 importScripts('js/sw-utils.js');
 
-const CACHE_STATIC_NAME     = 'static-v2';
-const CACHE_DYNAMIC_NAME    = 'dynamic-v1';
+const CACHE_STATIC_NAME     = 'static-v4';
+const CACHE_DYNAMIC_NAME    = 'dynamic-v2';
 const CACHE_INMUTABLE_NAME  = 'inmutable-v1';
 const CACHE_DYNAMIC_LIMIT = 50;
 
@@ -39,28 +39,18 @@ self.addEventListener('install', e => {
 
 self.addEventListener('activate', e => {  //Recién sucederá después de que 
                                           //ambas promesas de install terminen
-    const delStatic = caches.keys().then(keys => {
+    const cleansing = caches.keys().then(keys => {
         keys.forEach(key => {
             if(key !== CACHE_STATIC_NAME && key.includes('static-v'))
                 return caches.delete(key);
-        });        
-    });
 
-    const delDynamic = caches.keys().then(keys => {
-        keys.forEach(key => {
             if(key !== CACHE_DYNAMIC_NAME && key.includes('dynamic-v'))
                 return caches.delete(key);
-        });        
-    });
 
-    const delInimutable = caches.keys().then(keys => {
-        keys.forEach(key => {
             if(key !== CACHE_INMUTABLE_NAME && key.includes('inmutable-v'))
                 return caches.delete(key);
         });        
     });
-
-    const cleansing = Promise.all([delStatic, delDynamic, delInimutable]);;
 
     e.waitUntil(cleansing);
 });
