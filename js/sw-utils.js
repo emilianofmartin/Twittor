@@ -12,12 +12,12 @@ function cacheName(url) {
 
     Promise.all([shell, inmutable])
         .then(() => {
-            //console.log('cName', cName);
+            console.log('cName15', cName);
             return cName;
         })
         .catch(err => {
             console.log(err);
-            //console.log('cName', cName);
+            console.log('cName20', cName);
             return cName;
         });
 }
