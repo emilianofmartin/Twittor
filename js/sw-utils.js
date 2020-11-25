@@ -1,4 +1,4 @@
-function cacheName(url) {
+async function cacheName(url) {
     let cName = CACHE_DYNAMIC_NAME;
     const shell = APP_SHELL.forEach(u => {
         if(url.includes(u))
@@ -25,7 +25,7 @@ function cacheName(url) {
 //Guardar en el cach dinámico
 function updateCache(req, rsp) {
     if(rsp.ok) {
-        const cName = cacheName(req.url);
+        const cName = await cacheName(req.url);
         console.log("cName", cName);
         return caches.open(cName).then(cache => {
             cache.put(req, rsp.clone());
